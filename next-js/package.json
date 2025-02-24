@@ -3,9 +3,9 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "next dev --turbopack -p 6000",
+    "dev": "next dev --turbopack",
     "build": "next build",
-    "start": "next start -p 6000",
+    "start": "next start --turbopack",
     "lint": "next lint"
   },
   "dependencies": {
