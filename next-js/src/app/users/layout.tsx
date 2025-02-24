@@ -33,10 +33,7 @@ export default async function RootLayout({
 }>) {
   // const user = await getUserData();
   return (
-    <html lang="en">
-      <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
-      >
+   
       
       <div className="flex h-screen">
       {/* Sidebar */}
@@ -69,7 +66,5 @@ export default async function RootLayout({
       <main className="ml-64 p-6 flex-1 overflow-auto">{children}</main>
     </div>
 
-      </body>
-    </html>
   );
 }

@@ -14,7 +14,7 @@ export default function LoginPage() {
     // Simulating a check for an existing user session (replace with real auth logic)
     const user = localStorage.getItem("user");
     if (user) {
-      router.push("/dashboard");
+      router.push("/users");
     }
   }, []);
   
@@ -34,7 +34,7 @@ export default function LoginPage() {
       }
 
       // Redirect to dashboard after successful login
-      router.push("/dashboard");
+      router.push("/users");
     } catch (err) {
       setError("Invalid email or password");
     }
