@@ -1,17 +1,18 @@
-// import pool from '@/lib/db';
-import connection from '../../../lib/db';
+import { NextResponse } from "next/server";
 
-export default async function handler(req: { method: string; }, res: { status: (arg0: number) => { (): any; new(): any; json: (arg0: any) => void; }; }) {
-  if (req.method !== 'GET') {
-    return res.status(405).json({ message: 'Method Not Allowed' });
-  }
+const users = [
+  { id: 1, name: "Alice Johnson", email: "alice@example.com" },
+  { id: 2, name: "Bob Smith", email: "bob@example.com" },
+  { id: 3, name: "Charlie Brown", email: "charlie@example.com" },
+  { id: 4, name: "David Williams", email: "david@example.com" },
+  { id: 5, name: "Emma Davis", email: "emma@example.com" },
+  { id: 6, name: "Frank Miller", email: "frank@example.com" },
+  { id: 7, name: "Grace Lee", email: "grace@example.com" },
+  { id: 8, name: "Henry Wilson", email: "henry@example.com" },
+  { id: 9, name: "Isla Moore", email: "isla@example.com" },
+  { id: 10, name: "Jack Taylor", email: "jack@example.com" }
+];
 
-  try {
-    const conn = await connection();
-    const [rows] = await conn.query('SELECT * FROM users');
-    res.status(200).json(rows);
-  } catch (error) {
-    console.error('Database query error:', error);
-    res.status(500).json({ message: 'Internal Server Error' });
-  }
+export async function GET() {
+  return NextResponse.json(users);
 }

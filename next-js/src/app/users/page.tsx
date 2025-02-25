@@ -1,38 +1,67 @@
-import { useEffect, useState } from "react";
-import { Post } from "@/type"; // Import the Post type
+"use client";
 
-export default function Blogs() {
-  const [posts, setPosts] = useState<Post[]>([]);
-  const [userId, setUserId] = useState<number | null>(null);
+import { useEffect, useState } from "react";
+import { Table, Avatar } from "antd";
+import { useRouter } from "next/navigation";
+import Sidebar from "@/components/Sidebar";
+import { Layout, Card, Pagination } from "antd";
+interface User {
+  id: number;
+  name: string;
+  email: string;
+}
+
+export default function UsersPage() {
+  const [users, setUsers] = useState<User[]>([]);
+  const [loading, setLoading] = useState(true);
+  const router = useRouter();
 
   useEffect(() => {
-    // Generate a random user ID between 1 and 10
-    const randomUserId = Math.floor(Math.random() * 10) + 1;
-    setUserId(randomUserId);
-
-    // Fetch posts for the random user
-    fetch(`http://localhost:6000/users/${randomUserId}/posts`)
+    fetch("/api/users")
       .then((res) => res.json())
-      .then((data: Post[]) => setPosts(data))
-      .catch((error) => console.error("Error fetching posts:", error));
+      .then((data) => {
+        setUsers(data);
+        setLoading(false);
+      })
+      .catch(() => setLoading(false));
   }, []);
 
-  return (
-    <div>
-      <h1>Blogs</h1>
-      {userId && <h2>Posts from User {userId}</h2>}
-      <ul>
-        {posts.length > 0 ? (
-          posts.map((post) => (
-            <li key={post.id}>
-              <h3>{post.title}</h3>
-              <p>{post.body}</p>
-            </li>
-          ))
-        ) : (
-          <p>No posts found.</p>
-        )}
-      </ul>
-    </div>
+  const columns = [
+    {
+      title: "Avatar",
+      dataIndex: "id",
+      key: "avatar",
+      render: (id: number) => <Avatar src={`/images/users/${id}.jpg`} size={50} />
+    },
+    {
+      title: "Name",
+      dataIndex: "name",
+      key: "name"
+    },
+    {
+      title: "Email",
+      dataIndex: "email",
+      key: "email"
+    }
+  ];
+
+  return (<Layout className="min-h-screen">
+    <Sidebar params={{
+        userId: "0"
+      }}  />
+    <div className="p-6">
+      <h1 className="text-2xl font-bold mb-4">User List</h1>
+      <Table 
+        dataSource={users} 
+        columns={columns} 
+        loading={loading} 
+        rowKey="id" 
+        bordered 
+        onRow={(record) => ({
+          onClick: () => router.push(`/users/${record.id}`)
+        })}
+        className="cursor-pointer"
+      />
+    </div></Layout>
   );
 }

@@ -27,7 +27,7 @@ export default function Sidebar({ params }: { params: { userId: string } }) {
       </div>
       <Menu theme="light" mode="inline" defaultSelectedKeys={["1"]}>
         <Menu.Item key="1" icon={<HomeOutlined />}>
-          <Link href="/dashboard">Dashboard</Link>
+          <Link href="/users">Dashboard</Link>
         </Menu.Item>
         <Menu.Item key="2" icon={<FileOutlined />}>
           <Link href="/blogs">Blogs</Link>
