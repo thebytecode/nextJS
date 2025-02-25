@@ -32,9 +32,10 @@ export default function LoginPage() {
       if (!res.ok) {
         throw new Error("Invalid credentials");
       }
+      const userData = await res.json(); // Fetch user data
 
       // Redirect to dashboard after successful login
-      router.push("/users");
+      router.push(`/users/${userData.id}`);
     } catch (err) {
       setError("Invalid email or password");
     }
