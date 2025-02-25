@@ -25,5 +25,6 @@ export default function LogoutButton() {
     <Button type="primary" danger onClick={handleLogout}>
       Logout
     </Button>
+    
   );
 }

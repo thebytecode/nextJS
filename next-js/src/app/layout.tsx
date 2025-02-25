@@ -1,8 +1,8 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
-
-
-import "./globals.css";
+import "@/styles/globals.css"; // Tailwind & Global Styles
+import { ConfigProvider } from "antd";
+import { Layout } from "antd";
 import React from "react";
 
 const geistSans = Geist({
@@ -29,23 +29,20 @@ export const metadata: Metadata = {
 // }
 
 
-export default async function RootLayout({
-  children,
-}: Readonly<{
-  children: React.ReactNode;
-}>) {
-  // const user = await getUserData();
+
+export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en">
-      <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
-      >
-      <div >
-      {/* Dynamic Content */}
-      <main className="">{children}</main>
-    </div>
-
+      <body>
+        <ConfigProvider theme={{ token: {} }}>
+          <Layout className="min-h-screen flex">
+         
+            <Layout className="p-6">{children}</Layout>
+          </Layout>
+        </ConfigProvider>
       </body>
     </html>
   );
 }
+
+

@@ -19,25 +19,6 @@ interface Blog {
   status: string;
   created_at: string;
 }
-const blogs = [
-  {
-    id: 1,
-    userId: 1,
-    title: "Are you ready to buy a new modern home?",
-    description:
-      "The thing is that it’s a rare find out here. I think that’s a property...",
-    date: "August 11, 2022",
-    image: "/blog1.jpg",
-  },
-  {
-    id: 2,
-    userId: 1,
-    title: "The world is at your door step...",
-    description: "Effort would equate with who we often be. Lain still...",
-    date: "July 18, 2022",
-    image: "/blog2.jpg",
-  },
-];
 
 
 export default function users() {
@@ -47,6 +28,7 @@ export default function users() {
  // const { userId } = useParams();
   const [blogs, setBlogs] = useState<Blog[]>([]);
   const [loading, setLoading] = useState(true);
+  let message="All Blog Posts";
 
 
   useEffect(() => {
@@ -62,7 +44,7 @@ export default function users() {
   }, [userId]);
 
   if (loading) return <p>Loading blogs...</p>;
-  if (blogs.length === 0) return <p>No blogs found for this user.</p>;
+  if (blogs.length === 0) message = "<p>No blogs found for this user.</p>";
 
   return (
     <Layout className="min-h-screen">
@@ -72,6 +54,7 @@ export default function users() {
       <div className="p-6">
       <h1 className="text-2xl font-bold">Blogs by User {userId}</h1>
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+       {message}
         {blogs.map((blog) => (
           <div key={blog.id} className="border p-4 rounded shadow-lg">
             <img src={blog.image_url} alt={blog.title} className="w-full h-40 object-cover rounded" />
