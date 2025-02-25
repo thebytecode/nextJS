@@ -1,6 +1,11 @@
 import { NextResponse } from "next/server";
+import { connectToDB } from "@/lib/db";
 
-export async function POST(req: Request) {
+
+
+
+
+
   const { email, password } = await req.json();
 
   // Dummy user data (replace with real database check)
