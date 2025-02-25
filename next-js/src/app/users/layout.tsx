@@ -1,7 +1,8 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
-// import "./globals.css";
+import LogoutButton from "@/components/LogoutButton";
 import "../globals.css";
+import React from "react";
 const geistSans = Geist({
   variable: "--font-geist-sans",
   subsets: ["latin"],
@@ -54,10 +55,10 @@ export default async function RootLayout({
               </a>
             </li>
             <li>
-              <a href="/blogs" className="block p-2 bg-gray-700 rounded hover:bg-gray-600">
-                Blogs
-              </a>
+              
+              <LogoutButton />
             </li>
+            
           </ul>
         </nav>
       </aside>

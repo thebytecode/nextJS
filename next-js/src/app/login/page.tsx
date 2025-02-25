@@ -23,21 +23,25 @@ export default function LoginPage() {
     setError("");
 
     try {
-      const res = await fetch("http://localhost:3000/login", {
+      const res = await fetch("/api/login/", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ email, password }),
       });
 
       if (!res.ok) {
-        throw new Error("Invalid credentials");
+        throw new Error("Invalid credentials"+res.json());
       }
       const userData = await res.json(); // Fetch user data
 
       // Redirect to dashboard after successful login
-      router.push(`/users/${userData.id}`);
+      router.push(`/users/${userData.user.id}`);
     } catch (err) {
-      setError("Invalid email or password");
+      if (err instanceof Error) {
+        setError(err.message);
+      } else {
+        setError("Invalid email or password");
+      }
     }
   };
 

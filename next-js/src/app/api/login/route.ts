@@ -1,63 +1,14 @@
 import { NextResponse } from "next/server";
-import connection from "@/lib/db";
-import type { NextApiRequest, NextApiResponse } from "next";
-import bcrypt from "bcryptjs";
-import crypto from "crypto"; // Built-in Node.js module for hashing
-import { FieldPacket } from "mysql2";
-import { RowDataPacket } from 'mysql2/promise';
 
-
-interface User {
-  id: number;
-  name: string;
-  email: string;
-  password: string; // Hashed password stored in the database
-}
-const hashPassword = (password: string) => {
-  return crypto.createHash("sha256").update(password).digest("hex");
-};
-export default async function handler(req: NextApiRequest, res: NextApiResponse) {
-
-
-  const { username, password } = req.body;
+export async function POST(req: Request) {
+  const { email, password } = await req.json();
 
   // Dummy user data (replace with real database check)
- if (!username || !password) {
-    return res.status(400).json({ message: "Username and password are required" });
+  const validUser = email === "user@example.com" && password === "password123";
+
+  if (!validUser) {
+    return NextResponse.json({ error: "Invalid credentials:"+validUser }, { status: 401 });
   }
 
-  try {
-    
-    const conn = await connection();
-    
-    const [rows] = await conn.query<RowDataPacket[]>("SELECT * FROM users WHERE email = ?", [username]);
-   
-    const hashedPassword = hashPassword(password);
-    if (rows.length === 0) {
-      return res.status(401).json({ message: "Invalid username or password" });
+  return NextResponse.json({ message: "Login successful", user: {email: email,id:1 } });
     }
-
-    const user = rows[0];
-
-    // Verify password using bcrypt
-   // const passwordMatch = await bcrypt.compare(password, user.password);
-
-   
-    if (!passwordMatch) {
-      return res.status(401).json({ message: "Invalid username or password" });
-    }
-
-    // Return user data without password
-    const { password: _, ...userData } = user;
-    return res.status(200).json(userData);
-  } catch (error) {
-    console.error("Database error:", error);
-    return res.status(500).json({ message: "Internal Server Error" });
-  }
-
-  // if (!validUser) {
-  //   return NextResponse.json({ error: "Invalid credentials" }, { status: 401 });
-  // }
-
-  // return NextResponse.json({ message: "Login successful", user: { email } });
-}
