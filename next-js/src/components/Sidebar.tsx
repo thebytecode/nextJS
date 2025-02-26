@@ -29,10 +29,10 @@ export default function Sidebar({ params }: { params?: { userId?: string; postId
      
       
         if (typeof params.userId !== "undefined") {
-        const sessionUser = localStorage.getItem("user");
-        const userData = JSON.parse(sessionUser);
-        userId=userData.user.id;
-       
+      //  const sessionUser = localStorage.getItem("user");
+      //  const userData = JSON.parse(sessionUser);
+      //  userId=userData.user.id;
+      //  router.push("/users/"+);
       }else{
         userId=params.userId;
       }
