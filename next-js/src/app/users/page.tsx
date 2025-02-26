@@ -16,6 +16,8 @@ export default function UsersPage() {
   const [loading, setLoading] = useState(true);
   const router = useRouter();
 
+
+  
   useEffect(() => {
     fetch("/api/users")
       .then((res) => res.json())
@@ -47,7 +49,7 @@ export default function UsersPage() {
 
   return (<Layout className="min-h-screen">
     <Sidebar params={{
-        userId: "0"
+        userId: ""  // Add userId
       }}  />
     <div className="p-6">
       <h1 className="text-2xl font-bold mb-4">User List</h1>

@@ -14,7 +14,8 @@ export default function LoginPage() {
     // Simulating a check for an existing user session (replace with real auth logic)
     const user = localStorage.getItem("user");
     if (user) {
-      router.push("/users");
+      const userData = JSON.parse(user);
+      router.push("/users/"+userData.user.id);
     }
   }, []);
   
@@ -33,7 +34,7 @@ export default function LoginPage() {
         throw new Error("Invalid credentials"+res.json());
       }
       const userData = await res.json(); // Fetch user data
-
+      sessionStorage.setItem("user", JSON.stringify(userData));
       // Redirect to dashboard after successful login
       router.push(`/users/${userData.user.id}`);
     } catch (err) {

@@ -1,11 +1,10 @@
 "use client";
-import { Layout, Card, Pagination } from "antd";
+import { Avatar, Button,  Tag, Skeleton,Layout, Card, Pagination } from "antd";
+
+
 import { useEffect, useState } from "react";
 import { useParams } from "next/navigation";
-import {  Tag, Skeleton } from "antd";
-import { useEffect, useState } from "react";
-import { useParams, useRouter } from "next/navigation";
-import { Avatar, Button, Card } from "antd";
+
 import Sidebar from "@/components/Sidebar";
 
 interface Post {
@@ -23,12 +22,14 @@ interface Post {
 }
 
 export default function PostDetail() {
+  const params = useParams();
   const { postId } = useParams();
+  const userId = params?.userId as string;
   const [post, setPost] = useState<Post | null>(null);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    fetch(`/api/posts/${postId}`)
+    fetch(`/api/blogs/${postId}`)
       .then((res) => res.json())
       .then((data) => {
         setPost(data);
@@ -42,34 +43,6 @@ export default function PostDetail() {
 
 
 
-
-
-interface User {
-  id: number;
-  name: string;
-  email: string;
-}
-
-export default function UserProfile() {
-  const { id } = useParams();
-  const [user, setUser] = useState<User | null>(null);
-  const [loading, setLoading] = useState(true);
-  const router = useRouter();
-
-  useEffect(() => {
-    fetch("/api/users")
-      .then((res) => res.json())
-      .then((data) => {
-        const foundUser = data.find((u: User) => u.id == id);
-        setUser(foundUser || null);
-        setLoading(false);
-      })
-      .catch(() => setLoading(false));
-  }, [id]);
-
-  if (loading) return <p>Loading...</p>;
-  if (!user) return <p>User not found.</p>;
-
   return (
 
     <Layout className="min-h-screen">
@@ -77,26 +50,6 @@ export default function UserProfile() {
         userId: userId
       }}  />
     <div className="p-6">
-      <Card className="max-w-md mx-auto">
-        <div className="flex items-center space-x-4">
-          <Avatar src={`/images/users/${user.id}.jpg`} size={80} />
-          <div>
-            <h2 className="text-2xl font-semibold">{user.name}</h2>
-            <p className="text-gray-600">{user.email}</p>
-          </div>
-        </div>
-        <Button 
-          type="primary" 
-          className="mt-4 w-full" 
-          onClick={() => router.push(`/users/${user.id}/posts`)}
-        >
-          View Posts
-        </Button>
-      </Card>
-    </div></Layout>
-  );
-}
-
     <div className="p-6 max-w-3xl mx-auto">
       <Card className="shadow-lg">
         <img src={post.image_url} alt={post.title} className="w-full h-64 object-cover rounded" />
@@ -110,5 +63,8 @@ export default function UserProfile() {
         </div>
       </Card>
     </div>
+    </div></Layout>
   );
 }
+
+    
