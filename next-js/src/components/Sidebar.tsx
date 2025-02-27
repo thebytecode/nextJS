@@ -8,14 +8,8 @@ import LogoutButton from "@/components/LogoutButton";
 const { Sider } = Layout;
 import { useState, useEffect } from "react";
 import Image from "next/image";
-import router from "next/router";
+import { useRouter } from "next/navigation";
 import Avatar from "antd/es/avatar/Avatar";
-
-
-const handleLogout = () => {
-  sessionStorage.removeItem("user"); // Clear authentication token
-    router.push("/login"); // Redirect to login page
-  };
 
 
  
@@ -24,6 +18,15 @@ export default function Sidebar({ params }: { params?: { userId?: string; postId
  
   const [userId, setUserId] = useState<string | null>(null);
   const [collapsed, setCollapsed] = useState(false);
+  
+  const router = useRouter();
+
+  const handleLogout = async () => {
+    await fetch("/api/logout", { method: "POST" });
+    sessionStorage.removeItem("user");
+    localStorage.removeItem("user");
+    router.push("/login");
+  };
 
   useEffect(() => {
    
@@ -70,6 +73,7 @@ export default function Sidebar({ params }: { params?: { userId?: string; postId
       label: "Logout",
       danger: true,
       onClick: handleLogout, // Logout function
+      
     },
   ];
 

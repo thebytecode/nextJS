@@ -9,3 +9,9 @@ export async function GET() {
     },
   });
 }
+
+export async function POST() {
+  return NextResponse.json({ message: "Logout successful" }, { status: 200 ,headers: {
+    "Set-Cookie": `token=; HttpOnly; Path=/; Max-Age=0`, // Clears token
+  }});
+}
