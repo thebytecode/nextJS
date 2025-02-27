@@ -5,7 +5,6 @@ import {Avatar, Button,  Tag, Skeleton,Layout, Card, Pagination } from "antd";
 import { useEffect, useState } from "react";
 import { useParams } from "next/navigation";
 
-import Sidebar from "@/components/Sidebar";
 const { Content } = Layout;
 
 interface Post {
@@ -46,10 +45,7 @@ export default function PostDetail() {
 
   return (
                                                         
-    <Layout className="min-h-screen">
-    <Sidebar params={{
-        userId: userId
-      }}  />
+    
        <Content className="min-h-screen  w-full max-w-7xl mx-auto bg-gray-200  shadow-lg rounded-2xl p-8">
     
       <Card className="p-6 w-full max-w-4xl mx-auto bg-white  shadow-lg">
@@ -65,7 +61,7 @@ export default function PostDetail() {
       </Card>
     
     </Content>
-    </Layout>
+   
   );
 }
 

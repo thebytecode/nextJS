@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
-
+import Sidebar from "@/components/Sidebar";
 import "../globals.css";
 import React from "react";
 import { Layout, Card, Pagination } from "antd";
@@ -37,13 +37,16 @@ export default async function RootLayout({
   return (
    
       
-    <Layout className="min-h-screen">
-     
+    <Layout className="min-h-screen flex">
+
+<Sidebar />
       {/* Dynamic Content */}
-     
+      <Layout className="p-6">  {children}</Layout>
       {/* Dynamic Content */}
-      {children}
-      </Layout>
+      
+    </Layout>
+    
+      
 
   );
 }

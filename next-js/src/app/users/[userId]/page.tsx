@@ -6,7 +6,7 @@ import { Avatar, Button, Card } from "antd";
 import { Layout, Pagination } from "antd";
 import axios from 'axios';
 import React from 'react';
-import Sidebar from "@/components/Sidebar";
+
 interface User {
   id: number;
   name: string;
@@ -33,10 +33,7 @@ export default function UserProfile() {
   if (loading) return <p>Loading...</p>;
   if (!user) return <p>User not found.</p>;
 
-  return (<Layout className="min-h-screen">
-    <Sidebar params={{
-        userId: ""+userId
-      }}  />
+  return (
     <div className="p-6">
       <Card className="max-w-md mx-auto">
         <div className="flex items-center space-x-4">
@@ -54,6 +51,6 @@ export default function UserProfile() {
           View Posts
         </Button>
       </Card>
-    </div></Layout>
+    </div>
   );
 }

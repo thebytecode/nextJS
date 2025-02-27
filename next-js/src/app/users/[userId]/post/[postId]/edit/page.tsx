@@ -58,8 +58,7 @@ export default function EditPost() {
   if (!post) return <p>Post not found.</p>;
 
   return (
-    <Layout className="min-h-screen">
-      <Sidebar params={{ userId: Array.isArray(userId) ? userId[0] : userId }} />
+   
 
       <div className="p-3 pt-0 w-full max-w-none h-screen ">
       <div className="flex justify-center items-center min-h-screen bg-gray-100 ">
@@ -99,6 +98,6 @@ export default function EditPost() {
         </Card>
       </div>
       </div>
-    </Layout>
+   
   );
 }

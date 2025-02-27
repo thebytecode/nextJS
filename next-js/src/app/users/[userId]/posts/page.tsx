@@ -2,7 +2,7 @@
 import { Table, Button, Layout, Tag, Skeleton, Space, Popconfirm, message, Input, Select } from "antd";
 import { useEffect, useState } from "react";
 import { useParams, useRouter } from "next/navigation";
-import Sidebar from "@/components/Sidebar";
+
 
 const { Search } = Input;
 const { Option } = Select;
@@ -132,8 +132,7 @@ export default function PostList() {
   ];
 
   return (
-    <Layout className="min-h-screen">
-      <Sidebar params={{ userId }} />
+   
       <div className="p-6">
         <div className="max-w-5xl mx-auto bg-white p-6 rounded-lg shadow-md">
           <h1 className="text-2xl font-bold mb-4">Post List</h1>
@@ -147,6 +146,6 @@ export default function PostList() {
           {loading ? <Skeleton active /> : <Table dataSource={filteredPosts} columns={columns} pagination={{ pageSize }} />}
         </div>
       </div>
-    </Layout>
+    
   );
 }

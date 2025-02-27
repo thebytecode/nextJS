@@ -3,7 +3,6 @@
 import { useEffect, useState } from "react";
 import { Table, Avatar } from "antd";
 import { useRouter } from "next/navigation";
-import Sidebar from "@/components/Sidebar";
 import { Layout, Card, Pagination } from "antd";
 interface User {
   id: number;
@@ -48,10 +47,7 @@ export default function UsersPage() {
   ];
 
   return (
-  <Layout className="min-h-screen">
-    <Sidebar params={{
-        userId: "1"  // Add userId
-      }}  />
+  
     <div className="p-6">
       <h1 className="text-2xl font-bold mb-4">User List</h1>
       <Table 
@@ -65,6 +61,6 @@ export default function UsersPage() {
         })}
         className="cursor-pointer"
       />
-    </div></Layout>
+    </div>
   );
 }
