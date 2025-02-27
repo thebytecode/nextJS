@@ -1,14 +1,29 @@
 import { NextResponse } from "next/server";
+import path from "path";
+import fs from "fs/promises";
+
+const filePath = path.join(process.cwd(), "data", "users.json");
 
 export async function POST(req: Request) {
-  const { email, password } = await req.json();
+  try {
+    const { email, password } = await req.json();
 
-  // Dummy user data (replace with real database check)
-  const validUser = email === "user@example.com" && password === "password123";
+    // Read users.json file
+    const fileData = await fs.readFile(filePath, "utf-8");
+    const users = JSON.parse(fileData);
 
-  if (!validUser) {
-    return NextResponse.json({ error: "Invalid credentials:"+validUser }, { status: 401 });
-  }
+    // Find user by email
+    const user = users.find((u: any) => u.email === email);
 
-  return NextResponse.json({ message: "Login successful", user: {email: email,id:1 } });
+    if (!user || user.password !== password) {
+      return NextResponse.json({ error: "Invalid credentials" }, { status: 401 });
     }
+
+    // Remove password before sending response
+    const { password: _, ...userData } = user;
+
+    return NextResponse.json({ message: "Login successful", user: userData });
+  } catch (error) {
+    return NextResponse.json({ error: "Internal server error" }, { status: 500 });
+  }
+}

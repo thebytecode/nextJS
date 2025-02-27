@@ -1,4 +1,4 @@
-
+"use client";
 import { Layout, Menu } from "antd";
 import { LogoutOutlined, UserOutlined, FileTextOutlined, SettingOutlined } from "@ant-design/icons";
 
@@ -12,7 +12,7 @@ import router from "next/router";
 import Avatar from "antd/es/avatar/Avatar";
 
 const handleLogout = () => {
-    localStorage.removeItem("token"); // Clear authentication token
+  sessionStorage.removeItem("user"); // Clear authentication token
     router.push("/login"); // Redirect to login page
   };
 
@@ -20,23 +20,30 @@ const handleLogout = () => {
  
 
 export default function Sidebar({ params }: { params?: { userId?: string; postId?: string } }) {
-  
-  let userId: string= null;
+ 
+  const [userId, setUserId] = useState<string | null>(null);
+ 
 
   useEffect(() => {
+   
+
     if (typeof window !== "undefined") {
-     
-     
-      
-        if (typeof params.userId !== "undefined") {
-      //  const sessionUser = localStorage.getItem("user");
-      //  const userData = JSON.parse(sessionUser);
-      //  userId=userData.user.id;
-      //  router.push("/users/"+);
-      }else{
-        userId=params.userId;
+    
+      const sessionUser = sessionStorage.getItem("user");
+      if (sessionUser) {
+        try {
+          const userData = JSON.parse(sessionUser);
+          console.log("userData",userData);
+          setUserId(userData.id); // Set user ID from stored data
+
+        } catch (error) {
+          console.error("Error parsing user data:", error);
+         
+        }
       }
     }
+    
+    console.log("User ID:", userId); // Debugging output
   }, []);
 
 

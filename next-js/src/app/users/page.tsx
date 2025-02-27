@@ -47,9 +47,10 @@ export default function UsersPage() {
     }
   ];
 
-  return (<Layout className="min-h-screen">
+  return (
+  <Layout className="min-h-screen">
     <Sidebar params={{
-        userId: ""  // Add userId
+        userId: "1"  // Add userId
       }}  />
     <div className="p-6">
       <h1 className="text-2xl font-bold mb-4">User List</h1>

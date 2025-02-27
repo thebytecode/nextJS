@@ -1,0 +1,5 @@
+todo: 
+add base url 
+add session variable
+add images to posts 
+UI fix 

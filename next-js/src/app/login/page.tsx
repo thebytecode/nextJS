@@ -9,13 +9,15 @@ export default function LoginPage() {
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
   const router = useRouter();
-  
+  const [user, setUser] = useState(null);
+
   useEffect(() => {
     // Simulating a check for an existing user session (replace with real auth logic)
-    const user = localStorage.getItem("user");
+    const user = sessionStorage.getItem("user");
+   
     if (user) {
       const userData = JSON.parse(user);
-      router.push("/users/"+userData.user.id);
+      router.push("/users/"+userData.id);
     }
   }, []);
   
@@ -34,7 +36,10 @@ export default function LoginPage() {
         throw new Error("Invalid credentials"+res.json());
       }
       const userData = await res.json(); // Fetch user data
-      sessionStorage.setItem("user", JSON.stringify(userData));
+      
+      
+      sessionStorage.setItem("user", JSON.stringify(userData.user));
+      console.log("user",sessionStorage.getItem("user"));
       // Redirect to dashboard after successful login
       router.push(`/users/${userData.user.id}`);
     } catch (err) {
