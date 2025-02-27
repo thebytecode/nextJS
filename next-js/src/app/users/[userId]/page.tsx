@@ -34,8 +34,8 @@ export default function UserProfile() {
   if (!user) return <p>User not found.</p>;
 
   return (
-    <div className="p-6">
-      <Card className="max-w-md mx-auto">
+    <div className="max-w-5xl mx-auto bg-white  rounded-lg shadow-md ">
+      <Card className=" ">
         <div className="flex items-center space-x-4">
           <Avatar src={`/images/users/${user.id}.jpg`} size={80} />
           <div>

@@ -11,6 +11,7 @@ import Image from "next/image";
 import router from "next/router";
 import Avatar from "antd/es/avatar/Avatar";
 
+
 const handleLogout = () => {
   sessionStorage.removeItem("user"); // Clear authentication token
     router.push("/login"); // Redirect to login page
@@ -22,7 +23,7 @@ const handleLogout = () => {
 export default function Sidebar({ params }: { params?: { userId?: string; postId?: string } }) {
  
   const [userId, setUserId] = useState<string | null>(null);
- 
+  const [collapsed, setCollapsed] = useState(false);
 
   useEffect(() => {
    
@@ -64,7 +65,7 @@ export default function Sidebar({ params }: { params?: { userId?: string; postId
       label: <Link href={`/users/${userId}/posts`}>Blogs</Link>,
     },
     {
-      key: "logout",
+      key: "4",
       icon: <LogoutOutlined />,
       label: "Logout",
       danger: true,
@@ -74,7 +75,12 @@ export default function Sidebar({ params }: { params?: { userId?: string; postId
 
  
   return (
-    <Sider width={250} className="h-screen bg-white shadow-md">
+    <Sider  width={250}
+    collapsible
+    collapsed={collapsed}
+    onCollapse={(value) => setCollapsed(value)}
+    className="h-screen fixed left-0 top-0 shadow-md bg-white"
+    >
       <div className="p-4 text-center border-b">
         
     <img src={`/images/users/${userId}.jpg`} alt="User" className="w-14 h-14 rounded-full mx-auto" />

@@ -46,7 +46,7 @@ export default function PostDetail() {
   return (
                                                         
     
-       <Content className="min-h-screen  w-full max-w-7xl mx-auto bg-gray-200  shadow-lg rounded-2xl p-8">
+       <Content className="flex-1 ml-64 p-6 overflow-auto bg-gray-200  shadow-lg rounded-2xl p-8">
     
       <Card className="p-6 w-full max-w-4xl mx-auto bg-white  shadow-lg">
         <img src={post.image_url} alt={post.title} className="w-full h-[400px] object-cover rounded" />

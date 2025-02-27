@@ -60,7 +60,7 @@ export default function EditPost() {
   return (
    
 
-      <div className="p-3 pt-0 w-full max-w-none h-screen ">
+      <div className="p-3 pt-0 flex-1 ml-64 p-6 overflow-auto h-screen ">
       <div className="flex justify-center items-center min-h-screen bg-gray-100 ">
       <Card className="w-full  shadow-lg rounded-lg">
         <h2 className="text-2xl font-bold mb-4">Edit Post</h2>

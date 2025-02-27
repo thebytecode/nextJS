@@ -133,8 +133,8 @@ export default function PostList() {
 
   return (
    
-      <div className="p-6">
-        <div className="max-w-5xl mx-auto bg-white p-6 rounded-lg shadow-md">
+      
+     <div className="flex-1 ml-64 p-6 overflow-auto">
           <h1 className="text-2xl font-bold mb-4">Post List</h1>
           <div className="flex gap-4 mb-4">
             <Search placeholder="Search by title" onChange={(e) => setSearchTerm(e.target.value)} allowClear />
@@ -145,7 +145,7 @@ export default function PostList() {
           </div>
           {loading ? <Skeleton active /> : <Table dataSource={filteredPosts} columns={columns} pagination={{ pageSize }} />}
         </div>
-      </div>
+     
     
   );
 }
